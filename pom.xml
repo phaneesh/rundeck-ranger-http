@@ -10,13 +10,46 @@
     <packaging>jar</packaging>
 
     <name>rundeck-ranger-http</name>
-    <url>http://www.example.com</url>
+    <url>https://github.com/phaneesh/rundeck-ranger-http</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+
+    <distributionManagement>
+        <repository>
+            <id>clojars</id>
+            <name>Clojars repository</name>
+            <url>https://clojars.org/repo</url>
+        </repository>
+    </distributionManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/phaneesh/rundeck-ranger-http.git</connection>
+        <developerConnection>scm:git:https://github.com/phaneesh/rundeck-ranger-http.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/phaneesh/rundeck-ranger-http</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>phaneesh</id>
+            <name>Phaneesh Nagaraja</name>
+            <email>phaneesh.n@gmail.com</email>
+        </developer>
+    </developers>
 
     <repositories>
         <repository>
