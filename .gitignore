@@ -1,0 +1,11 @@
+*.iml
+*.ip*
+*.iw*
+.idea
+/.idea/
+*.deb
+data/*
+target/*
+test/*
+*/target/**
+/dependency-reduced-pom.xml
