@@ -266,7 +266,7 @@ public class HttpClient implements StepPlugin, Describable {
       httpRequest.post(
           RequestBody.create(MediaType.parse(String.valueOf(map.get("contentTypeHeader"))), String.valueOf(map.get("payload"))));
     } else {
-      httpRequest.patch(RequestBody.create(MediaType.parse("*/*"), new byte[0]));
+      httpRequest.post(RequestBody.create(MediaType.parse("*/*"), new byte[0]));
     }
     return executeRequest(httpRequest.build());
   }
