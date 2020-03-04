@@ -29,7 +29,7 @@ public class HttpClientStepPluginTest {
    * @param method HTTP Method to use.
    * @return Options for the execution.
    */
-  public Map<String, Object> getOptions(String method, String zk) {
+  public Map<String, Object> getOptions(String method, String zk, String uri) {
     Map<String, Object> options = new HashMap<>();
     options.put("zkConnectionString", zk);
     options.put("namespace", "test");
@@ -37,7 +37,7 @@ public class HttpClientStepPluginTest {
     options.put("environment", "test");
     options.put("method", method);
     options.put("secured", false);
-    options.put("uri", "/test");
+    options.put("uri", uri);
     options.put("acceptHeader", "application/json");
     options.put("contentTypeHeader", "application/json");
     return options;
@@ -60,7 +60,8 @@ public class HttpClientStepPluginTest {
   public void setUp() throws Exception {
     plugin = new HttpClient();
     // Simple endpoint
-    WireMock.stubFor(WireMock.request("GET", WireMock.urlEqualTo("/test")).atPriority(100)
+    WireMock.stubFor(WireMock.request("GET", WireMock.urlPathEqualTo("/test"))
+        .atPriority(100)
         .willReturn(WireMock.aResponse()
             .withStatus(200)));
     server = new TestingCluster(1);
@@ -109,8 +110,15 @@ public class HttpClientStepPluginTest {
   @Test()
   public void testHttpGet() throws StepException {
     this.plugin.setCuratorFramework(curatorFramework);
-    this.plugin.executeStep(new PluginStepContextImpl(), this.getOptions("GET", server.getConnectString()));
+    this.plugin.executeStep(new PluginStepContextImpl(), this.getOptions("GET", server.getConnectString(), "test"));
     verify(1,  getRequestedFor(urlEqualTo("/test")));
+  }
+
+  @Test()
+  public void testHttpGetWithQueryParams() throws StepException {
+    this.plugin.setCuratorFramework(curatorFramework);
+    this.plugin.executeStep(new PluginStepContextImpl(), this.getOptions("GET", server.getConnectString(), "test?a=b"));
+    verify(1,  getRequestedFor(urlEqualTo("/test?a=b")));
   }
 
 }

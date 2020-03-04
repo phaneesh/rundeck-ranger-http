@@ -291,9 +291,9 @@ public class HttpClient implements StepPlugin, Describable {
       builder.scheme("http");
     }
     Optional<ServiceNode<ShardInfo>> node = serviceDiscoveryClient.getNode();
+
     if (node.isPresent()) {
-      builder.host(node.get().getHost()).port(node.get().getPort())
-          .encodedPath(String.valueOf(map.get("uri")));
+      builder.host(node.get().getHost()).port(node.get().getPort());
     } else {
       log.error("Error executing ranger call! No node available");
       throw new IllegalStateException("Service unavailable");
@@ -303,8 +303,8 @@ public class HttpClient implements StepPlugin, Describable {
 
   private Request.Builder initializeRequest(Map<String, Object> map) {
     val url = generateURI(map);
-    log.info("Ranger call URL: " + url);
-    val httpRequest = new Request.Builder().url(url);
+    log.info("Ranger call URL: " + url.toString() + map.get("uri"));
+    val httpRequest = new Request.Builder().url(url.toString() + map.get("uri"));
     httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, String.valueOf(map.get("contentTypeHeader")));
     httpRequest.addHeader(HttpHeaders.ACCEPT, String.valueOf(map.get("acceptHeader")));
     return httpRequest;
